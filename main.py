@@ -6,7 +6,7 @@ from time import sleep, time
 from github import Github
 import threading
 
-
+#key.config 파일 정의 필요
 def get_infos():
     if os.path.exists('./key.config'):
         return open('key.config', encoding='utf-8').read().split('\n')
