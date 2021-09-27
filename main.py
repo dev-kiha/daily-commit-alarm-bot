@@ -1,6 +1,7 @@
 import tweepy
 import datetime
 import os
+import yaml
 from random import choice
 from time import sleep, time
 from github import Github
@@ -8,17 +9,21 @@ import threading
 
 
 def get_infos():
-    if os.path.exists('./key.config'):
-        return open('key.config', encoding='utf-8').read().split('\n')
+    if os.path.exists('key.yaml'):
+        with open('key.yaml', 'r') as f:
+            config = yaml.load(f, Loader=yaml.FullLoader)
+            return config
     else:
-        return os.environ.get('cons_key'), os.environ.get('cons_sec'), os.environ.get('tok_key'), os.environ.get('tok_sec'), os.environ.get('github_id'), os.environ.get('github_pw')
+        return os.environ.get('consumer_key'), os.environ.get('consumer_secret'), os.environ.get(
+            'access_token'), os.environ.get('access_token_secret'), os.environ.get('github_id'), os.environ.get(
+            'github_secret')
 
-cons_key, cons_sec, tok_key, tok_sec, github_id, github_pw = get_infos()
-auth = tweepy.OAuthHandler(cons_key, cons_sec)
-auth.set_access_token(tok_key, tok_sec)
-api = tweepy.API(auth, wait_on_rate_limit=True)
 
-user = Github(github_id, github_pw)
+conf = get_infos()
+auth = tweepy.OAuthHandler(conf['consumer_key'], conf['consumer_secret'])
+auth.set_access_token(conf['access_token'], conf['access_token_secret'])
+api = tweepy.API(auth)
+user = Github(login_or_token='token', password=conf['github_secret'])
 
 msg_list = [s for s in open('messages.txt', encoding='utf-8-sig').read().split('\n') if s != '']
 
@@ -34,7 +39,7 @@ def today():
 
 
 def get_today_commits():
-    for event in user.get_user(github_id).get_events():
+    for event in user.get_user(conf['github_id']).get_events():
         if event.created_at > today():
             if event.type in ['PushEvent', 'PullRequestEvent', 'IssueEvent']:
                 yield event
@@ -43,7 +48,7 @@ def get_today_commits():
 
 
 def handle(usr_name):
-    if len(list(get_today_commits())) == 0:
+    if len(list(get_today_commits())) == 20:
         try:
             tweet(usr_name + ' ' + choice(msg_list))
         except tweepy.error.TweepError:
@@ -59,8 +64,8 @@ def send_log(user_id, men):
 
 def run_auto():
     while True:
-        if datetime.datetime.today().hour > 20:
-            handle('@kiha-bot')
+        if datetime.datetime.today().hour > 1:
+            handle('@dev_kiha')
             sleep(86400)
         else:
             sleep(100)
@@ -70,6 +75,7 @@ class MentionListener(tweepy.StreamListener):
     def on_status(self, status):
         print(status.text)
         send_log(status.id, status.user.screen_name)
+
 
 if __name__ == '__main__':
     lastId = -1

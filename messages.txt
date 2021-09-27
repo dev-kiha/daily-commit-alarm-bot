@@ -1,1 +1,6 @@
-You must commit! commit! commit! today.
+You must commit! commit! commit! today.1
+You must commit! commit! commit! today.2
+You must commit! commit! commit! today.3
+You must commit! commit! commit! today.4
+You must commit! commit! commit! today.5
+You must commit! commit! commit! today.6
