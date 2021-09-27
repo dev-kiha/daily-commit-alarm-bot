@@ -15,8 +15,8 @@ def get_infos():
             return config['consumer_key'], config['consumer_secret'], config['access_token'], config[
                 'access_token_secret'], config['github_id'], config['github_secret']
     else:
-        return os.environ.get('consumer_key'), os.environ.get('consumer_secret'), os.environ.get(
-            'access_token'), os.environ.get('access_token_secret'), os.environ.get('github_id'), os.environ.get(
+        return os.getenv('consumer_key'), os.getenv('consumer_secret'), os.getenv(
+            'access_token'), os.getenv('access_token_secret'), os.getenv('github_id'), os.getenv(
             'github_secret')
 
 
