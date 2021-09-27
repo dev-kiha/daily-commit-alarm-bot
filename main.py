@@ -21,7 +21,7 @@ def get_infos():
 conf = get_infos()
 auth = tweepy.OAuthHandler(conf['consumer_key'], conf['consumer_secret'])
 auth.set_access_token(conf['access_token'], conf['access_token_secret'])
-api = tweepy.API(auth)
+api = tweepy.API(auth, wait_on_rate_limit=True)
 user = Github(login_or_token='token', password=conf['github_secret'])
 
 msg_list = [s for s in open('messages.txt', encoding='utf-8-sig').read().split('\n') if s != '']
