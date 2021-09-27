@@ -7,7 +7,6 @@ from time import sleep, time
 from github import Github
 import threading
 
-#key.config 파일 정의 필요
 def get_infos():
     if os.path.exists('key.yaml'):
         with open('key.yaml', 'r') as f:
