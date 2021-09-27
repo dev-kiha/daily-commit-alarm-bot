@@ -1,2 +1,3 @@
 PyGithub==1.55
 tweepy==3.8.0
+PyYAML~=5.4.1

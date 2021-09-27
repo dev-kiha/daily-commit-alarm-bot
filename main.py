@@ -7,22 +7,24 @@ from time import sleep, time
 from github import Github
 import threading
 
+
 def get_infos():
     if os.path.exists('key.yaml'):
         with open('key.yaml', 'r') as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
-            return config
+            return config['consumer_key'], config['consumer_secret'], config['access_token'], config[
+                'access_token_secret'], config['github_id'], config['github_secret']
     else:
         return os.environ.get('consumer_key'), os.environ.get('consumer_secret'), os.environ.get(
             'access_token'), os.environ.get('access_token_secret'), os.environ.get('github_id'), os.environ.get(
             'github_secret')
 
 
-conf = get_infos()
-auth = tweepy.OAuthHandler(conf['consumer_key'], conf['consumer_secret'])
-auth.set_access_token(conf['access_token'], conf['access_token_secret'])
+consumer_key, consumer_secret, access_token, access_token_secret, github_id, github_secret = get_infos()
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, wait_on_rate_limit=True)
-user = Github(login_or_token='token', password=conf['github_secret'])
+user = Github(login_or_token='token', password=github_secret)
 
 msg_list = [s for s in open('messages.txt', encoding='utf-8-sig').read().split('\n') if s != '']
 
@@ -38,7 +40,7 @@ def today():
 
 
 def get_today_commits():
-    for event in user.get_user(conf['github_id']).get_events():
+    for event in user.get_user(github_id).get_events():
         if event.created_at > today():
             if event.type in ['PushEvent', 'PullRequestEvent', 'IssueEvent']:
                 yield event
@@ -78,7 +80,7 @@ class MentionListener(tweepy.StreamListener):
 
 if __name__ == '__main__':
     lastId = -1
-    tweet('Start Running Bot! ..At ' + str(time()) + '!')
+    tweet('Daily commit alarm BOT is working! ' + str(time()) + '!')
     th = threading.Thread(target=run_auto)
     th.start()
     listener = MentionListener()
