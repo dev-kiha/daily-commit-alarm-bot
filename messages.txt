@@ -1,6 +1,7 @@
-You must commit! commit! commit! today.1
-You must commit! commit! commit! today.2
-You must commit! commit! commit! today.3
-You must commit! commit! commit! today.4
-You must commit! commit! commit! today.5
-You must commit! commit! commit! today.6
+좋은 프로그래머 대부분은 돈이나 대중에게 받을 찬사를 기대하고 프로그래밍을 하지 않고 프로그래밍이 재미 있어서 한다.
+코드를 최대한 빈틈없이 작성하는 사람은 디버그할 정도로 똑똑하지 않은 것이다.
+월요일에 작성한 코드를 디버깅하느라 그 주의 나머지를 허비하느니 월요일에 침대 안에 머무는게 나을 때도 있다.
+프로그래밍은 자기 얼굴을 차는 것과 같아서, 조만간 코피가 날 것이다.
+프로그래밍은 무엇을 알고 있는가에 대한 것이 아니다. 그것은 당신이 무엇을 알아낼 수 있는 가에 대한 것이다.
+새로운 프로그래밍 언어를 배우는 유일한 방법은 그 언어로 프로그램을 만드는 것이다.
+손으로 10초면 충분히 할 수 있는 일을 컴퓨터로 하루 종일 프로그래밍해서 자동으로 수행할 때, 나는 더할 나위 없이 큰 행복을 느낀다.
