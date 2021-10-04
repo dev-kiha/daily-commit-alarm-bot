@@ -43,13 +43,13 @@ def get_today_commits():
     for event in user.get_user(github_id).get_events():
         if event.created_at > today():
             if event.type in ['PushEvent', 'PullRequestEvent', 'IssueEvent']:
-                yield event
+                yield event  # yield를 호출하면 원하는 값을 리턴하며, 실행 흐름을 일시 정지하여 함수를 재활용할 수 있는 상태로 만듭니다.
         else:
             break
 
 
 def handle(usr_name):
-    if len(list(get_today_commits())) == 20:
+    if len(list(get_today_commits())) < 5:
         try:
             tweet(usr_name + ' ' + choice(msg_list))
         except tweepy.error.TweepError:
@@ -65,7 +65,7 @@ def send_log(user_id, men):
 
 def run_auto():
     while True:
-        if datetime.datetime.today().hour > 1:
+        if datetime.datetime.today().hour > 20:
             handle('@dev_kiha')
             sleep(86400)
         else:
