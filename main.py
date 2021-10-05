@@ -49,7 +49,7 @@ def get_today_commits():
 
 
 def handle(usr_name):
-    if len(list(get_today_commits())) < 5:
+    if len(list(get_today_commits())) < 3:
         try:
             tweet(usr_name + ' ' + choice(msg_list))
         except tweepy.error.TweepError:
@@ -65,7 +65,7 @@ def send_log(user_id, men):
 
 def run_auto():
     while True:
-        if datetime.datetime.today().hour > 20:
+        if datetime.datetime.today().hour > 3:
             handle('@dev_kiha')
             sleep(86400)
         else:
