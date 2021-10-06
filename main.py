@@ -67,7 +67,7 @@ def run_auto():
     while True:
         if datetime.datetime.today().hour > 6:
             handle('@dev_kiha')
-            sleep(86400)
+            sleep(24*60*60)
         else:
             sleep(100)
 
