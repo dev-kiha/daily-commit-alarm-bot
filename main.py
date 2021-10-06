@@ -65,7 +65,7 @@ def send_log(user_id, men):
 
 def run_auto():
     while True:
-        if datetime.datetime.today().hour > 3:
+        if datetime.datetime.today().hour > 6:
             handle('@dev_kiha')
             sleep(86400)
         else:
